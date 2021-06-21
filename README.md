@@ -1,5 +1,5 @@
 # cheatsheet & info by Mashiroro
-> Do not use this for illegal purposes. 
-> This is purely for legal penetration testing and learning purposes.
-> i am will not be responsible for any damages or loss caused.
-> heavily inspired by waterexecution's github: https://github.com/WaterExecution/CTF-Stuff
+1. Do not use this for illegal purposes. 
+2. This is purely for legal penetration testing and learning purposes.
+3. i will not take responsible for any damages or loss caused.
+4. heavily inspired by waterexecution's github: https://github.com/WaterExecution/CTF-Stuff
