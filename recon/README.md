@@ -1,7 +1,7 @@
 # Recon
-> Reconnassiance is to get initial information e.g. port numbers, netbios etc. 
+Reconnassiance is to get initial information e.g. port numbers, netbios etc. 
 
-# NBTscan
+## NBTscan
 
 ```
 nbtscan {IP}
