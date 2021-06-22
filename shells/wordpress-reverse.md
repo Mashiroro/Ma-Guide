@@ -1,4 +1,4 @@
-# Word Press Reverse Shell
+# Wordpress Reverse shell via Plguin Upload
 ```
 <?php
 /**
