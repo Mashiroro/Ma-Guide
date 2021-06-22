@@ -39,6 +39,23 @@ Gobuster dir -u {website URL} -w {word list location} -t {threshold} -x txt,php 
 > /usr/share/seclists/discover/webcontent/directory-list-2.3-medium 
 > Take note you must have seclist's wordlist installed!
 
+## LDAP query
+```
+ldapsearch -h {IP}
+ldapsearch -h {IP} -x -s base namingcontexts
+ldapsearch -h {IP} -x -b "{netbios}={domain},{netbios}={dodmain} | grep -i description
+```
+> only for AD 
+
 ## Reconbot
+```
+./reconbot {IP} 
+./reconbot {IP} -p {Port}
+./reconbot {IP} -w {wordlist}
+```
 
 ## Rustscan 
+```
+rustscan -a {IP}
+```
+> fast port scanning
