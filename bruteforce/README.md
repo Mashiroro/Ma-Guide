@@ -1,10 +1,11 @@
 ## Brute force 
 > multiply attempts to "crack" or have unathorize access to either a file or account etc. 
 
-## Wordlist 
-> Seclist: https://github.com/danielmiessler/SecLists
-> rockyou: https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt
-
+## Wordlist
+```
+Seclist: https://github.com/danielmiessler/SecLists
+rockyou: https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt
+```
 
 
 ## John the Ripper
@@ -56,13 +57,12 @@ https://github.com/frizb/Hashcat-Cheatsheet
 1800 - sha512crypt $6$, SHA512(Unix)
 
 ```
-> Linux hashes 
-> /etc/shadow
+> Linux hashes (/etc/shadow)
 
 ```
 hashcat.exe -a 0 -m {ID} {.hash/.txt file} {wordlist} -r rules\Insider-ProMAnagerHASdasdasdasd.txt
 ```
-
+> general usage
 ```
 13100 - Type 23 - $krb5tgs$23$
 19600 - Type 17 - $krb5tgs$17$
