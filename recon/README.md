@@ -36,7 +36,7 @@ nmap {IP} -sV
 ```
 Gobuster dir -u {website URL} -w {word list location} -t {threshold} -x txt,php -o {ouput file}
 ```
-> /usr/share/seclists/discover/webcontent/directory-list-2.3-medium 
+> /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium 
 > Take note you must have seclist's wordlist installed!
 
 ## LDAP query
