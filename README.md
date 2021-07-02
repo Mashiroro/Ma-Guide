@@ -9,4 +9,6 @@ Called it De-Bible because i kept referring it to as "De Bible".
 3. I will not take responsible for any damages or loss caused. :D
 4. Heavily inspired (definitely not stolen) by waterexecution's github: https://github.com/WaterExecution/CTF-Stuff pls dun sue me >.<
 
-
+## Operating Systems:
+Parrot
+Windows 10 + flareVM
