@@ -5,10 +5,11 @@
 -   Listening port enabled
 
 # webshell.php
+```
 Usage: 
 Upon finding the link url of the websehll, add a ?cmd={commands} 
 e.g. www.test.con/uploads/webshell.php?cmd={whoami}  
-
+```
 ## Extras:
 hexadecimals for file uploads:
 https://en.wikipedia.org/wiki/List_of_file_signatures
