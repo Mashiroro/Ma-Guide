@@ -5,6 +5,8 @@
 ```
 Seclist: https://github.com/danielmiessler/SecLists
 rockyou: https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt
+
+/usr/share/seclists/Passwords/darkweb2017-top1000.txt
 ```
 
 
@@ -25,6 +27,11 @@ john -show {.hash file}
 ```
 fcrackzip -u -v -D -p {wordlist} {.zip}
 ```
+## Hydra
+```
+hydra -L {name} -P {wordlist} {IP} smb
+```
+> take note there are SMB, SSH
 
 ## Crackmapexec 
 ```
