@@ -2,11 +2,12 @@
 > multiply attempts to "crack" or have unathorize access to either a file or account etc. 
 
 ## Wordlist
-```
 Seclist: https://github.com/danielmiessler/SecLists
 rockyou: https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt
 
+```
 /usr/share/seclists/Passwords/darkweb2017-top1000.txt
+rockyou.txt
 ```
 
 
