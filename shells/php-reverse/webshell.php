@@ -1,7 +1,10 @@
 <!-- 
 Usage: 
 Upon finding the link url of the websehll, add a ?cmd={commands} 
-e.g. www.test.con/uploads/webshell.php?cmd={whoami}  
+e.g. www.test.con/uploads/webshell.php?cmd={whoami}
+  
+credits:
+https://gist.github.com/joswr1ght/22f40787de19d80d110b37fb79ac3985
  -->
 
 <html>
