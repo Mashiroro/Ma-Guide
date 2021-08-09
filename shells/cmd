@@ -1,5 +1,0 @@
-## Dumps
-### Wifi Dump
-```
-netsh wlan show profile Wi-Fi name key=clear
-```
