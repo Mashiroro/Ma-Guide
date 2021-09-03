@@ -52,11 +52,11 @@ Set-Itemproperty -path {path} -Name '{name of property you want to edit}' -value
 New-ItemProperty -Path '{HKLM:\registry path}' -name "{name}" -PropertyType {type} -value "{value}" 
 ```
 
-String: Specifies a null-terminated string. Equivalent to REG_SZ.
-ExpandString = REG_EXPAND_SZ.
-Binary = REG_BINARY.
-DWord = REG_DWORD.
-MultiString = REG_MULTI_SZ.
-Qword = REG_QWORD.
-Unknown = REG_RESOURCE_LIST.
+String = REG_SZ.
+* ExpandString = REG_EXPAND_SZ.
+* Binary = REG_BINARY.
+* DWord = REG_DWORD.
+* MultiString = REG_MULTI_SZ.
+* Qword = REG_QWORD.
+* Unknown = REG_RESOURCE_LIST.
 
