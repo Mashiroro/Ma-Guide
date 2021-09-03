@@ -59,3 +59,26 @@ New-ItemProperty -Path '{HKLM:\registry path}' -name "{name}" -PropertyType {typ
 * Qword = REG_QWORD.
 * Unknown = REG_RESOURCE_LIST.
 
+## NTFS permissions
+
+#### Get information about file/folder
+```
+Get-Acl {file path}
+(Get-ACL -Path "{file path}").Access | Format-Table -AutoSize
+```
+
+#### Add user to folder/file permission
+```
+$acl = Get-Acl {file path}
+$AccessRule = New-Object System.Security.AccessControl.FileSystemAccessRule("{user account}","{permisson}","{Allow/Deny}")
+$acl.SetAccessRule($AccessRule)
+$acl | Set-Acl {file path}
+```
+File permissoins:
+* Read & Execute = ReadAndExecute
+* Write = AppendData
+* Modify = CreateFiles
+* Full control = FullControl
+
+
+
