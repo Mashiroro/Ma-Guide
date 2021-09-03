@@ -51,8 +51,7 @@ Set-Itemproperty -path {path} -Name '{name of property you want to edit}' -value
 ```
 New-ItemProperty -Path '{HKLM:\registry path}' -name "{name}" -PropertyType {type} -value "{value}" 
 ```
-
-String = REG_SZ.
+* String = REG_SZ.
 * ExpandString = REG_EXPAND_SZ.
 * Binary = REG_BINARY.
 * DWord = REG_DWORD.
