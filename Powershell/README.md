@@ -80,3 +80,9 @@ File permissoins:
 * Modify = CreateFiles
 * Full control = FullControl
 
+## Obfuscation for powershell commands
+```
+Import-module invoke-obfuscation.pd1
+invoke-obfuscation
+Write-Host "{command}" 
+```
