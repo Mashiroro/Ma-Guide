@@ -79,8 +79,25 @@ hashcat.exe -a 0 -m {ID} {.hash/.txt file} {wordlist} -r rules\Insider-ProMAnage
 
 hashcat -m 13100 -a 0 -w 4 {.hash file/.txt file} {wordlist}
 ```
-> kerberoasting
+> crack kerberoast hashes
 
+```
+echo -n "change" | hashcat --force --stdout -r /usr/share/hashcat/rules/{rule}.rule >> wordlist.txt | sort
+```
+> generate a wordlist out from the word "change" via rules.
+```
+InsiderPro-Hashmanager.rule
+rockyou-3000.rule
+best64.rule
+```
+> recommended rules
+```
+echo -n "change" | hashcat --force --stdout -r /usr/share/hashcat/rules/hybrid/append_d.rule  -r /usr/share/hashcat/rules/hybrid/append_d.rule  -r /usr/share/hashcat/rules/hybrid/append_d.rule  >> wordlist.txt | sort
+
+echo "change" >> potential.txt
+hashcat -a 6 potential.txt ?d?d?d --force --stdout > wordlist.txt
+```
+> generate a wordlist out from the word "change" and appending digit rules. E.g. change000 change032 change321
 
 ## Burpsuite
 
