@@ -4,6 +4,8 @@ evil-winrm -i {IP} -u {username} -p {password/NTLM hash}
 
 upload {local_filename} {destination_filename (optional)}
 download {remote_filename} {destination_filename (optional)}
+
+xfreerdp /v:{IP address} /cert:ignore /u:{USERNAME}
 ```
 > evil win-rm
 > only for windows pro or windows with RDP!!! >.<
