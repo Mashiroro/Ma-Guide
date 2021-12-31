@@ -1,43 +1,40 @@
-## Get Hashfile 
+## Hashing
 ```
-Get-FileHash .\{file} -Algorithm {hash type} | Format-List
+Get-FileHash .\{file} -Algorithm {hash} | Format-List
 ```
-hash type = SHA256, MD5 etc
-
-## Find word / "grep" version of windows
+## Find word / 'Grep'
 ```
+# find pattern in file
 select-string .\{file} -Pattern "{string}"
-
-```
-
-```
 set-Content -Path .\{file} -Value "String"
-```
-```
+
+# Find name of string in direcotry
 Get-ChildItem {directory} -Filter *.log -Recurse | Select-String "{string}"
 ```
-recursively find a string of all types of file in a directory. 
 
-## Read/write a file 
+## Read / Write file
 ```
+# Read
 Get-Content -Path .\{file}
 Get-Content -Path .\{file} -TotalCount 5
 (Get-Content -Path .\{file} -TotalCount 25)[-1]
-```
-```
+
+# Write 
 Add-Content -Path .\{file} -Value "{string}}"
 ```
 
-## Get info about account
+## Accounts 
 ```
-Get-ADUser -Identity {name} -Properties *
-net user "{name}"
-```
+# Accounts
+net user
 
-## Enable accounts
-```
+# Enable account 
 Enable-LocalUser -Name "{name}"
 Enable-ADAccount -Identity "{name/Distinguished Name}"
+
+# Group
+get-localgroup
+get-localgroupmember 
 ```
 
 ## Registry
@@ -59,8 +56,14 @@ New-ItemProperty -Path '{HKLM:\registry path}' -name "{name}" -PropertyType {typ
 * Qword = REG_QWORD.
 * Unknown = REG_RESOURCE_LIST.
 
-## NTFS permissions
+#### Enable RDP
+```
+reg add "hklm\**system**\currentControlSet\Control\Terminal Server" /v "AllowTSConnections" /t REG_DWORD /d 0x1 /f
 
+reg add "hklm\**system**\currentControlSet\Control\Terminal Server" /v "fDenyTSConnections" /t REG_DWORD /d 0x0 /f
+```
+
+## NTFS permissions
 #### Get information about file/folder
 ```
 Get-Acl {file path}
@@ -100,4 +103,4 @@ set-MpPreference -DisableArchiveScanning $True -DisableBehaviorMonitoring $True 
 3. Disable Auto Exclusion
 4. Disable Blocking of file at first seeen
 5. Disable Real Time Monitoring
-6. Exluces the C drive 
+6. Excludes C drive 
