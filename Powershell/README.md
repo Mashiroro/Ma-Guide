@@ -1,7 +1,20 @@
-## Hashing
+## Hashing / Encoding
 ```
 Get-FileHash .\{file} -Algorithm {hash} | Format-List
 ```
+
+#### Base64
+windows base64 encodes the text with UTF-16LE first before encdoing the text with base64
+```
+$Command =  "echo hello"
+$Encoded = [convert]::ToBase64String([System.Text.encoding]::Unicode.GetBytes($command)) 
+Write-Output $Encoded
+```
+##### Cyberchef
+https://gchq.github.io/CyberChef/#recipe=Encode_text('UTF-16LE%20(1200)')To_Base64('A-Za-z0-9%2B/%3D')&input=ZWNobyBoZWxsbw
+![image](https://user-images.githubusercontent.com/45526280/178141612-5cfad915-acfc-439f-901e-eb52479bb61a.png)
+
+
 ## Find word / 'Grep'
 ```
 # find pattern in file
@@ -21,6 +34,11 @@ Get-Content -Path .\{file} -TotalCount 5
 
 # Write 
 Add-Content -Path .\{file} -Value "{string}}"
+```
+
+# Create a new file 
+```
+New-Item
 ```
 
 ## Accounts 
