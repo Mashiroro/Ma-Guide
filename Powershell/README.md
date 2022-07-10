@@ -3,7 +3,8 @@
 Get-FileHash .\{file} -Algorithm {hash} | Format-List
 ```
 
-#### Base64
+### Base64
+#### Encoding
 windows base64 encodes the text with UTF-16LE first before encdoing the text with base64
 ```
 $Command =  "echo hello"
@@ -14,6 +15,11 @@ Write-Output $Encoded
 https://gchq.github.io/CyberChef/#recipe=Encode_text('UTF-16LE%20(1200)')To_Base64('A-Za-z0-9%2B/%3D')&input=ZWNobyBoZWxsbw
 ![image](https://user-images.githubusercontent.com/45526280/178141612-5cfad915-acfc-439f-901e-eb52479bb61a.png)
 
+#### Decoding / Command execution
+```
+powershell.exe -Encoded "ZQBjAGgAbwAgAGgAZQBsAGwAbwA="
+powershell.exe -EncodedCommand "ZQBjAGgAbwAgAGgAZQBsAGwAbwA="
+```
 
 ## Find word / 'Grep'
 ```
@@ -39,6 +45,9 @@ Add-Content -Path .\{file} -Value "{string}}"
 # Create a new file 
 ```
 New-Item
+New-Item -Path "" -Name "" -ItemType ""
+New-Item -Path ".\" -Name "test.html" -ItemType "file"
+New-Item -Path ".\" -Name "test" -ItemType "directory"
 ```
 
 ## Accounts 
